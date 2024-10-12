@@ -1,0 +1,467 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Personality Types in Startups Questionnaire</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f8f8f8;
+            background-image: url(Images/vecteezy_abstract-green-fluid-wave-background_12954609.jpg)
+        }
+        h1 {
+            color: #2c3e50;
+            text-align: center;
+            margin-bottom: 10px;
+        }
+        p {
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        #progress {
+            background-color: aliceblue;
+            padding: 5px 10px;
+            border-radius: 15px;
+            display: inline-block;
+            margin-bottom: 20px;
+            font-weight: bold;
+        }
+        .question-container {
+            background-color: #ffffff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            margin-bottom: 20px;
+        }
+        .question {
+            margin-bottom: 20px;
+        }
+        .options {
+            display: flex;
+            flex-direction: column;
+        }
+        .option {
+            margin: 5px 0;
+            padding: 10px;
+            background-color: #f1f3f5;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            text-align: left;
+        }
+        .option:hover {
+            background-color: #e9ecef;
+        }
+        .option.selected {
+            background-color: #d0ebff;
+        }
+        #next {
+            display: block;
+            width: 100%;
+            padding: 10px;
+            background-color: darkblue;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            font-weight: bold;
+            
+        }
+        #next:hover {
+            background-color: #2f9e44;
+        }
+        .center {
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <h1 style="color: darkblue">Personality Types in Startups Questionnaire</h1>
+    <p style="color: #ff6600; background-color: aliceblue; border-radius: 10px; font-weight: bold;">* This "test" is the first step in building the AI startup scenario simulator. In order to predict/simulate scenarios based on your personality you will have to know yours and its traits. Please keep in mind that there are no right or wrong answers here. *</p>
+    <p style="color: #ff6600; background-color: aliceblue; border-radius: 10px; font-weight: bold;">** This was generated with Claude Sonnet & Perplexity AI and it is based on Taibi Kahler's Process Communication Model. PCM has been previously used at NASA and by Bill Clinton when he won the 1992 presidential campaign.  **</p>
+    <div class="center">
+        <div id="progress"></div>
+    </div>
+    <div class="question-container">
+        <div id="quiz"></div>
+    </div>
+    <button id="next">Next Question</button>
+    <div id="result"></div>
+
+    <script>
+        const questions = [
+            {
+                question: "When faced with a challenging problem, I tend to:",
+                options: [
+                    "Analyze all available data to find a logical solution.",
+                    "Seek advice from trusted colleagues and mentors.",
+                    "Focus on maintaining team morale while addressing the issue.",
+                    "Take a step back and think creatively about potential solutions.",
+                    "Approach the problem with a sense of humor and lightheartedness.",
+                    "Jump in and take action to resolve it quickly."
+                ]
+            },
+            {
+                question: "My ideal team consists of:",
+                options: [
+                    "Detail-oriented individuals who value structure and logic.",
+                    "Individuals who are committed and share my values.",
+                    "Empathetic people who prioritize collaboration.",
+                    "Visionaries who can think outside the box.",
+                    "Fun-loving people who can keep things exciting.",
+                    "Results-driven individuals who thrive on competition."
+                ]
+            },
+            {
+                question: "When pitching my startup idea, I focus on:",
+                options: [
+                    "The data and metrics that support my concept.",
+                    "The ethical implications and long-term impact.",
+                    "The emotional appeal and how it helps people.",
+                    "The innovative aspects and unique vision.",
+                    "The excitement and potential for disruption.",
+                    "The potential for quick returns and profitability."
+                ]
+            },
+            {
+                question: "My approach to feedback is:",
+                options: [
+                    "Analytical; I look for specific areas of improvement.",
+                    "Constructive; I appreciate honest, value-based feedback.",
+                    "Supportive; I focus on the positive aspects first.",
+                    "Reflective; I consider it a chance to rethink my approach.",
+                    "Light-hearted; I believe humor can ease the sting of criticism.",
+                    "Direct; I want actionable insights that drive results."
+                ]
+            },
+            {
+                question: "In a crisis, I typically:",
+                options: [
+                    "Gather data and analyze the situation thoroughly.",
+                    "Consult with my team to ensure everyone is aligned.",
+                    "Focus on keeping the atmosphere calm and supportive.",
+                    "Take a moment to think creatively about alternative solutions.",
+                    "Look for the silver lining and keep spirits high.",
+                    "Mobilize the team to take immediate action."
+                ]
+            },
+            {
+                question: "My decision-making style is:",
+                options: [
+                    "Data-driven and methodical.",
+                    "Values-based and principled.",
+                    "Consensus-driven and inclusive.",
+                    "Intuitive and imaginative.",
+                    "Spontaneous and flexible.",
+                    "Fast-paced and results-oriented."
+                ]
+            },
+            {
+                question: "I handle conflicts by:",
+                options: [
+                    "Analyzing the facts and finding a logical resolution.",
+                    "Ensuring that everyone's values are respected.",
+                    "Facilitating a discussion to understand all perspectives.",
+                    "Taking a step back to think creatively about the situation.",
+                    "Using humor to diffuse tension.",
+                    "Addressing the issue head-on and moving forward."
+                ]
+            },
+            {
+                question: "My vision for the startup is:",
+                options: [
+                    "To create a sustainable, data-driven business model.",
+                    "To uphold strong ethical standards and community values.",
+                    "To foster a supportive and inclusive culture.",
+                    "To innovate and disrupt the industry.",
+                    "To make a significant impact while having fun.",
+                    "To achieve rapid growth and market leadership."
+                ]
+            },
+            {
+                question: "I prefer to communicate:",
+                options: [
+                    "Clearly and logically, focusing on the facts.",
+                    "With depth, ensuring that values are understood.",
+                    "Warmly, emphasizing connection and empathy.",
+                    "Creatively, using metaphors and stories.",
+                    "Casually, often using humor.",
+                    "Concisely, getting straight to the point."
+                ]
+            },
+            {
+                question: "My ideal work environment is:",
+                options: [
+                    "Structured and organized with clear expectations.",
+                    "Values-driven, where everyone shares a common purpose.",
+                    "Collaborative, with open lines of communication.",
+                    "Flexible, allowing for creativity and exploration.",
+                    "Energetic and dynamic, with a sense of fun.",
+                    "Competitive, where achievements are recognized and rewarded."
+                ]
+            },
+            {
+                question: "I approach networking by:",
+                options: [
+                    "Researching potential connections beforehand.",
+                    "Building relationships based on shared values.",
+                    "Fostering genuine connections and support.",
+                    "Exploring creative collaborations.",
+                    "Making it enjoyable and entertaining.",
+                    "Seeking out opportunities for mutual benefit."
+                ]
+            },
+            {
+                question: "My startup's marketing strategy focuses on:",
+                options: [
+                    "Providing detailed information and data to the audience.",
+                    "Highlighting our commitment to ethical practices.",
+                    "Creating emotional connections with our audience.",
+                    "Showcasing innovative ideas and concepts.",
+                    "Engaging customers with humor and excitement.",
+                    "Emphasizing quick results and success stories."
+                ]
+            },
+            {
+                question: "When setting goals, I prioritize:",
+                options: [
+                    "Achievable metrics and data-driven targets.",
+                    "Goals that align with our core values.",
+                    "Goals that foster team cohesion and support.",
+                    "Ambitious and visionary objectives.",
+                    "Goals that allow for flexibility and spontaneity.",
+                    "High-impact, results-oriented targets."
+                ]
+            },
+            {
+                question: "My response to failure is:",
+                options: [
+                    "To analyze what went wrong and learn from it.",
+                    "To reflect on the values that were compromised.",
+                    "To seek support and encouragement from my team.",
+                    "To brainstorm new and creative approaches.",
+                    "To find humor in the situation and move on.",
+                    "To quickly pivot and try a different strategy."
+                ]
+            },
+            {
+                question: "I believe that leadership is about:",
+                options: [
+                    "Making informed, logical decisions.",
+                    "Upholding values and integrity.",
+                    "Supporting and empowering team members.",
+                    "Inspiring creativity and innovation.",
+                    "Keeping the energy high and motivating the team.",
+                    "Driving results and achieving goals."
+                ]
+            },
+            {
+                question: "My startup's culture is defined by:",
+                options: [
+                    "Clear processes and logical frameworks.",
+                    "A strong commitment to ethical practices.",
+                    "A focus on collaboration and support.",
+                    "An emphasis on creativity and exploration.",
+                    "A fun and dynamic atmosphere.",
+                    "A competitive and results-driven environment."
+                ]
+            },
+            {
+                question: "I prefer to solve problems by:",
+                options: [
+                    "Using logic and analysis to find the best solution.",
+                    "Considering the values and principles involved.",
+                    "Collaborating with others to find a consensus.",
+                    "Thinking outside the box for innovative solutions.",
+                    "Approaching it with a playful mindset.",
+                    "Taking decisive action to resolve it quickly."
+                ]
+            },
+            {
+                question: "My startup's success is measured by:",
+                options: [
+                    "Data and metrics that demonstrate growth.",
+                    "The positive impact on the community and stakeholders.",
+                    "The satisfaction and well-being of the team.",
+                    "The level of innovation and creativity achieved.",
+                    "The excitement and engagement of our customers.",
+                    "The speed and efficiency of our results."
+                ]
+            },
+            {
+                question: "I handle stress by:",
+                options: [
+                    "Analyzing the situation and creating a plan.",
+                    "Seeking support from my values and community.",
+                    "Connecting with others for emotional support.",
+                    "Taking time to reflect and recharge creatively.",
+                    "Finding humor in the situation to lighten the mood.",
+                    "Focusing on immediate tasks to regain control."
+                ]
+            },
+            {
+                question: "My long-term vision for my startup includes:",
+                options: [
+                    "A sustainable and logical growth plan.",
+                    "A commitment to ethical practices and community impact.",
+                    "A culture of support and collaboration.",
+                    "Continuous innovation and creative breakthroughs.",
+                    "A vibrant and engaging brand presence.",
+                    "Achieving market leadership and recognition."
+                ]
+            }
+        ];
+
+        const quizContainer = document.getElementById('quiz');
+        const nextButton = document.getElementById('next');
+        const resultContainer = document.getElementById('result');
+        const progressContainer = document.getElementById('progress');
+
+        let currentQuestion = 0;
+        const userAnswers = [];
+
+        function showQuestion(index) {
+            if (index >= questions.length) {
+                showResults();
+                return;
+            }
+            const question = questions[index];
+            quizContainer.innerHTML = `
+                <div class="question">
+                    
+                    <p>${question.question}</p>
+                </div>
+                <div class="options">
+                    ${question.options.map((option, optionIndex) => `
+                        <button class="option" data-option="${optionIndex}">${option}</button>
+                    `).join('')}
+                </div>
+            `;
+            updateProgress();
+            
+            if (index === questions.length - 1) {
+                nextButton.textContent = "Submit Answers";
+            } else {
+                nextButton.textContent = "Next Question";
+            }
+        }
+
+        function updateProgress() {
+            progressContainer.textContent = `Question ${currentQuestion + 1} of ${questions.length}`;
+        }
+
+        function selectOption(e) {
+            if (e.target.classList.contains('option')) {
+                const optionButtons = document.querySelectorAll('.option');
+                optionButtons.forEach(button => button.classList.remove('selected'));
+                e.target.classList.add('selected');
+            }
+        }
+
+        function nextQuestion() {
+            const selectedOption = document.querySelector('.option.selected');
+            if (!selectedOption) {
+                alert("Please select an option before proceeding.");
+                return;
+            }
+
+            userAnswers[currentQuestion] = parseInt(selectedOption.dataset.option);
+            currentQuestion++;
+
+            if (currentQuestion < questions.length) {
+                showQuestion(currentQuestion);
+            } else {
+                showResults();
+            }
+        }
+
+        function showResults() {
+            quizContainer.style.display = 'none';
+            nextButton.style.display = 'none';
+            progressContainer.style.display = 'none';
+
+            const scores = [0, 0, 0, 0, 0, 0]; // Thinker, Persister, Harmonizer, Imaginer, Rebel, Promoter
+            userAnswers.forEach(answer => {
+                scores[answer]++;
+            });
+
+            const personalities = [`Thinker <br><br>
+•	Characteristics: Data-driven, logical, analytical.<br>
+•	Influences: Prefers structured environments, values facts and metrics, focuses on problem-solving through analysis.
+<br>
+<br>
+Individuals with a Thinker personality type often exhibit strong analytical skills, which are rooted in the brain's prefrontal cortex. This area is responsible for higher-order cognitive functions such as reasoning, problem-solving, and decision-making. Neuroimaging studies have shown that Thinkers tend to have increased activity in regions associated with logical reasoning and critical thinking. Their preference for data-driven approaches allows them to process information methodically, leading to well-informed decisions that are often grounded in empirical evidence.
+<br>
+<br>
+Moreover, the Thinker’s inclination towards structure and organization can be linked to their brain's executive functions. These functions help manage cognitive processes, enabling Thinkers to prioritize tasks and maintain focus on long-term goals. This personality type's ability to synthesize complex information and draw logical conclusions is a critical asset in entrepreneurial environments, where strategic planning and risk assessment are essential for success.
+`, ` Persister <br><br>
+•	Characteristics: Value(s)-driven, principled, committed.<br>
+•	Influences: Prioritizes ethics and community impact, seeks alignment with values, emphasizes long-term goals.
+<br>
+<br>
+The Persister personality type is characterized by a strong adherence to values and principles, which can be traced back to the brain's limbic system, particularly the amygdala. This region is involved in emotional processing and is crucial for social behavior and moral reasoning. Persisters often demonstrate heightened sensitivity to ethical considerations, which influences their decision-making processes. Neuroscientific research suggests that individuals with this personality type may exhibit stronger emotional responses when faced with moral dilemmas, reflecting their commitment to integrity and community values.
+<br>
+<br>
+Additionally, the connectivity between the amygdala and prefrontal cortex in Persisters supports their ability to balance emotional insights with rational thought. This interplay allows them to navigate complex social situations effectively, fostering trust and collaboration within their teams. Their emphasis on ethical leadership and community impact positions them as strong advocates for sustainable business practices in the startup ecosystem.
+`, `Harmonizer <br><br>
+•	Characteristics: Empathetic, supportive, collaborative.<br>
+•	Influences: Focuses on team dynamics, values emotional connections, aims to foster a positive work environment.
+<br>
+<br>
+Harmonizers are known for their empathetic and supportive nature, which is deeply rooted in the brain's social cognition networks. Areas such as the anterior cingulate cortex and the insula are activated during social interactions, enabling Harmonizers to perceive and respond to the emotions of others. This neural sensitivity allows them to create a supportive work environment, fostering collaboration and team cohesion. Research indicates that individuals with a strong Harmonizer trait are often more attuned to social cues, enhancing their ability to mediate conflicts and build strong interpersonal relationships.
+<br>
+<br>
+Furthermore, the release of oxytocin, often referred to as the "bonding hormone," plays a significant role in the Harmonizer's ability to connect with others. This neurochemical response promotes trust and social bonding, essential for effective teamwork. Harmonizers leverage their emotional intelligence to enhance group dynamics, making them valuable assets in any startup environment that prioritizes a positive culture and employee well-being.
+`, `Imaginer <br><br>
+•	Characteristics: Creative, intuitive, visionary.<br>
+•	Influences: Values innovation and flexibility, seeks to explore new ideas, encourages out-of-the-box thinking.
+<br>
+<br>
+The Imaginer personality type is associated with creativity and innovative thinking, which can be linked to the brain's default mode network (DMN). This network is active during mind-wandering and daydreaming, allowing Imaginer types to explore new ideas and possibilities without the constraints of conventional thinking. Neuroimaging studies have shown that individuals with a dominant Imaginer trait often exhibit increased connectivity within the DMN, facilitating their ability to generate creative solutions and envision future scenarios.
+<br>
+<br>
+Additionally, the interplay between the DMN and the executive control network enables Imaginers to balance creativity with practical execution. This unique cognitive flexibility allows them to adapt their visionary ideas into actionable strategies, making them effective leaders in environments that thrive on innovation. Their capacity to think outside the box is crucial for startups aiming to disrupt established markets and create novel products or services.
+`, `Rebel <br><br>
+•	Characteristics: Fun-loving, spontaneous, engaging.<br>
+•	Influences: Brings humor and excitement to the workplace, values a dynamic atmosphere, encourages a playful approach to challenges.
+<br>
+<br>
+Rebels are characterized by their spontaneity and playful approach to challenges, which is reflected in the brain's reward system. The release of dopamine, often associated with pleasure and reward, plays a significant role in motivating Rebels to take risks and pursue new experiences. Neurobiological studies suggest that individuals with a strong Rebel trait may exhibit heightened sensitivity to rewards, driving their desire for novelty and excitement in both personal and professional contexts.
+<br>
+<br>
+Moreover, the ability of Rebels to maintain a light-hearted perspective can be linked to their brain's emotional regulation mechanisms. This trait allows them to cope with stress and adversity by reframing challenges as opportunities for growth. Their unique blend of creativity and resilience makes them adept at navigating the uncertainties of the startup world, often inspiring their teams to embrace change and innovation with enthusiasm.
+`, `Promoter <br><br>
+•	Characteristics: Results-oriented, competitive, action-driven.<br>
+•	Influences: Focuses on achieving quick results, values efficiency and effectiveness, thrives in competitive environments.
+<br>
+<br>
+Promoters are results-oriented individuals who thrive in competitive environments, a trait that can be traced back to the brain's motivational circuitry. The activation of the striatum, a key component of the brain's reward system, is associated with goal-directed behavior and the pursuit of success. Promoters often exhibit heightened activity in this region, driving their ambition and desire for achievement. Neuroscientific research indicates that individuals with a strong Promoter personality are particularly motivated by external rewards, which can enhance their performance in high-stakes situations.
+<br>
+<br>
+Additionally, the Promoter's ability to engage and influence others is linked to their strong social skills and charisma, facilitated by the brain's social cognition networks. This combination of motivation and interpersonal effectiveness allows Promoters to rally teams around common goals, fostering a competitive yet collaborative atmosphere. Their focus on results and efficiency is invaluable in startup settings, where quick decision-making and adaptability are essential for success.
+`];
+            const maxScore = Math.max(...scores);
+            const dominantPersonality = personalities[scores.indexOf(maxScore)];
+
+            resultContainer.innerHTML = `
+                <h2>Based on your answers, your dominant personality type is: ${dominantPersonality}</h2>
+                
+            `;
+        }
+
+        // Initialize the quiz
+        showQuestion(currentQuestion);
+        quizContainer.addEventListener('click', selectOption);
+        nextButton.addEventListener('click', nextQuestion);
+    </script>
+</body>
+</html>
